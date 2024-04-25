@@ -54,7 +54,7 @@ FROM
 ORDER BY
     salary DESC;
 
--- 문제 6 (입사일은 1977-12와 같이 표시하시오 처리 안됨)
+-- 문제 6 
 SELECT
     first_name,
     salary,
