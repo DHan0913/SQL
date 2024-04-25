@@ -78,7 +78,7 @@ WHERE
 
 -- 문제 8 
 SELECT
-    *
+    department_name
 FROM
     departments
 ORDER BY
@@ -89,7 +89,8 @@ SELECT
     UPPER(country_name)
 FROM
     countries
-ORDER BY country_name ASC;
+ORDER BY
+    country_name ASC;
 
 -- 문제 10 
 SELECT
