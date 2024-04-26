@@ -22,12 +22,14 @@ SELECT
     j.job_id,
     job_title,
     salary,
-    department_id
+    department_name
 FROM
-    employees emp,
-    jobs      j
+    employees   emp,
+    jobs        j,
+    departments dept
 WHERE
     emp.job_id = j.job_id
+    AND dept.department_id = emp.department_id
 ORDER BY
     employee_id ASC;
    
@@ -39,12 +41,14 @@ SELECT
     j.job_id,
     job_title,
     salary,
-    department_id
+    department_name
 FROM
-    employees emp,
-    jobs      j
+    employees   emp,
+    jobs        j,
+    departments dept
 WHERE
-    emp.job_id = j.job_id (+)
+    emp.job_id = j.job_id
+    AND dept.department_id (+)= emp.department_id
 ORDER BY
     employee_id ASC;
     
