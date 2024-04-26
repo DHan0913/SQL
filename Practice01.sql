@@ -65,7 +65,7 @@ SELECT
 FROM
     employees
 WHERE
-    department_id IN ( 10, 9, 100 );
+    department_id IN ( 10, 90, 100 );
 
 -- 문제 7
 SELECT
