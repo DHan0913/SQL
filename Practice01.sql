@@ -90,7 +90,7 @@ SELECT
 FROM
     countries
 ORDER BY
-    country_name ASC;
+    UPPER(country_name) ASC;
 
 -- 문제 10 
 SELECT
