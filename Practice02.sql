@@ -62,10 +62,10 @@ SELECT
     AVG(salary) - MIN(salary) "평균임금-최저임금"
 FROM
     employees
-HAVING
-    AVG(salary) - MIN(salary) < 2000
 GROUP BY
     department_id
+HAVING
+    AVG(salary) - MIN(salary) < 2000
 ORDER BY
     AVG(salary) - MIN(salary) DESC;
     
