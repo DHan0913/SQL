@@ -124,6 +124,23 @@ WHERE
 ORDER BY
     country_name ASC;
     
+-- 문제 7
+SELECT
+    first_name
+    || ''
+    || last_name name,
+    emp.job_id,
+    j.job_id,
+    emp.employee_id,
+    j.employee_id
+FROM
+    employees   emp,
+    job_history j
+WHERE
+    emp.job_id = j.job_id
+    AND emp.job_id LIKE 'AC_ACCOUNT%'
+    AND j.job_id LIKE 'AC_ACCOUNT%';
+    
 -- 문제 8
 SELECT
     emp.department_id,
@@ -148,7 +165,7 @@ FROM
     countries   coun,
     regions     reg
 WHERE
-    dept.manager_id = emp.manager_id
+    dept.manager_id = emp.employee_id
     AND loc.location_id = dept.location_id
     AND coun.region_id = reg.region_id
     AND dept.department_id = emp.department_id
@@ -156,18 +173,15 @@ WHERE
     
 -- 문제9
 SELECT
-    emp.employee_id,
     emp.first_name,
-    emp.manager_id,
-    dept.manager_id department_name,
-    emp.department_id,
-    dept.department_id,
-    man.first_name
+    emp.employee_id,
+    department_name,
+    man.first_name,
+    emp.manager_id
 FROM
     employees   emp,
-    departments dept,
-    employees   man
+    employees   man,
+    departments dept
 WHERE
-    dept.department_id (+) = emp.department_id
-    AND emp.manager_id = dept.manager_id
-    AND emp.first_name = man.first_name;
+    emp.manager_id = man.employee_id
+    AND emp.department_id = dept.department_id (+);
