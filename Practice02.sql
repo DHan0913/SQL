@@ -82,16 +82,18 @@ ORDER BY
 SELECT
     manager_id,
     ROUND(
-        AVG(salary)
+        AVG(salary), 1
     ),
     MIN(salary),
     MAX(salary)
 FROM
-    employees 
-where
+    employees
+WHERE
     hire_date >= '15/01/01'
 GROUP BY
     manager_id
+HAVING
+    AVG(salary) >= 5000
 ORDER BY
     AVG(salary) DESC;
     
