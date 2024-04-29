@@ -101,7 +101,7 @@ HAVING
     AVG(salary) >= 5000
 ORDER BY
     AVG(salary) DESC;
-    
+      
 -- 문제 10
 SELECT
     first_name,
