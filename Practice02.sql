@@ -6,6 +6,8 @@ FROM
     
 -- 문제 2
 SELECT
+    MAX(salary)               최고임금,
+    MIN(salary)               최저임금,
     MAX(salary) - MIN(salary) "최고임금-최저임금"
 FROM
     employees;
@@ -33,18 +35,21 @@ ORDER BY
     
 -- 문제 5
 SELECT
-    job_id      업무,
     ROUND(
         AVG(salary)
     )           평균임금,
     MAX(salary) 최고임금,
-    MIN(salary) 최저임금
+    MIN(salary) 최저임금,
+    job_id      업무아이디
 FROM
     employees
 GROUP BY
     job_id
 ORDER BY
-    job_id ASC;
+    MIN(salary) DESC,
+    ROUND(
+        AVG(salary)
+    ) ASC;
     
 -- 문제 6
 SELECT
@@ -71,7 +76,7 @@ ORDER BY
     
 -- 문제 8
 SELECT
-    job_id,
+    job_title,
     max_salary - min_salary
 FROM
     jobs
