@@ -87,9 +87,9 @@ SELECT
     MIN(salary),
     MAX(salary)
 FROM
-    employees
-WHERE
-    hire_date > TO_DATE('2015-01-01', 'YYYY-MM-DD')
+    employees 
+where
+    hire_date >= '15/01/01'
 GROUP BY
     manager_id
 ORDER BY
@@ -100,11 +100,11 @@ SELECT
     first_name,
     hire_date,
     CASE
-    WHEN hire_date < TO_DATE(12, 'YY') THEN
+    WHEN hire_date <= '12/12/31' THEN
     '창립멤버'
-    WHEN hire_date < TO_DATE(13, 'YY') THEN
+    WHEN hire_date <= '13/12/31' THEN
     '13년 입사'
-    WHEN hire_date < TO_DATE(14, 'YY') THEN
+    WHEN hire_date <= '14/12/31' THEN
     '14년 입사'
     ELSE
     '상장이후입사'
