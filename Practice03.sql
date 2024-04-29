@@ -157,7 +157,7 @@ SELECT
     emp.employee_id,
     emp.first_name,
     emp.hire_date,
-    man.first_name,
+    man.first_name "매니저 이름",
     man.hire_date
 FROM
     employees emp,
@@ -171,8 +171,8 @@ SELECT
     emp.employee_id,
     emp.first_name,
     emp.hire_date,
-    man.first_name,
-    man.hire_date
+    man.first_name "매니저 이름",
+    man.hire_date  "매니저 입사일"
 FROM
     employees emp
     JOIN employees man ON emp.manager_id = man.employee_id
@@ -216,32 +216,31 @@ SELECT
     first_name
     || ' '
     || last_name name,
-    j.job_id,
-    j.employee_id,
+    jh.job_id,
+    jh.employee_id,
     start_date,
     end_date
 FROM
     employees   emp,
-    job_history j
+    job_history jh
 WHERE
-    emp.job_id = j.job_id
-    AND emp.job_id LIKE 'AC_ACCOUNT%'
-    AND j.job_id LIKE 'AC_ACCOUNT%';
+    emp.employee_id = jh.employee_id
+    AND jh.job_id LIKE 'AC_ACCOUNT%';
 
 -- ANSI 
 SELECT
+    emp.employee_id,
     first_name
     || ' '
     || last_name name,
-    j.job_id,
-    j.employee_id,
+    jh.job_id,
     start_date,
     end_date
 FROM
-    job_history j
-    JOIN employees emp ON emp.job_id = j.job_id
-                          AND emp.job_id LIKE 'AC_ACCOUNT%'
-                          AND j.job_id LIKE 'AC_ACCOUNT%';
+    employees emp
+    JOIN job_history jh ON emp.employee_id = jh.employee_id
+WHERE
+    jh.job_id LIKE 'AC_ACCOUNT%';
     
 -- 문제 8
 SELECT
