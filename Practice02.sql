@@ -72,7 +72,7 @@ GROUP BY
 HAVING
     AVG(salary) - MIN(salary) < 2000
 ORDER BY
-    AVG(salary) - MIN(salary) DESC;
+    "평균임금-최저임금" DESC;
     
 -- 문제 8
 SELECT
@@ -82,6 +82,16 @@ FROM
     jobs
 ORDER BY
     max_salary - min_salary DESC;
+
+SELECT
+    job_id,
+    MAX(salary) - MIN(salary) diff
+FROM
+    employees
+GROUP BY
+    job_id
+ORDER BY
+    diff DESC;
     
 -- 문제 9
 SELECT
