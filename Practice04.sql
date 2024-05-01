@@ -1,7 +1,7 @@
 -- 문제 1
 
 SELECT
-    COUNT(salary)
+    COUNT(*)
 FROM
     employees
 WHERE
@@ -19,7 +19,9 @@ SELECT
     salary,
     (
         SELECT
-            AVG(salary)
+            ROUND(
+                AVG(salary)
+            )
         FROM
             employees
     ) 평균급여,
@@ -45,8 +47,8 @@ WHERE
             employees
     )
 ORDER BY
-    salary;
-    
+    salary;    
+
 -- 문제 3
 SELECT
     location_id,
@@ -140,6 +142,26 @@ SELECT
     emp.first_name,
     emp.salary
 FROM
+    employees emp
+    JOIN (
+        SELECT
+            department_id,
+            AVG(salary) salary
+        FROM
+            employees
+        GROUP BY
+            department_id
+    ) sal ON emp.department_id = sal.department_id
+WHERE
+    emp.salary > sal.salary
+ORDER BY
+    emp.salary DESC;
+-----------------7
+SELECT
+    emp.employee_id,
+    emp.first_name,
+    emp.salary
+FROM
     employees emp,
     (
         SELECT
@@ -178,7 +200,11 @@ WHERE
     rank BETWEEN 11 AND 15;
 
 SELECT
-    *
+    employee_id,
+    first_name,
+    salary,
+    hire_date,
+    ROWNUM rank
 FROM
     (
         SELECT
@@ -197,10 +223,23 @@ FROM
                 FROM
                     employees
                 ORDER BY
-                    hire_date DESC
+                    hire_date
             )
     )
 WHERE
     rank BETWEEN 11 AND 15;
+-- rownum
+SELECT rnum, employee_id, first_name, salary, hire_date
+FROM
+    (SELECT employee_id, first_name, salary, hire_date,
+            ROW_NUMBER() OVER (ORDER BY hire_date) AS rnum
+    FROM employees)
+WHERE rnum >= 11 AND rnum <= 15;
+-- rank
+SELECT  rank, employee_id, first_name, salary, hire_date
+FROM (SELECT employee_id, first_name, salary, hire_date,
+        RANK() OVER (ORDER BY hire_date ASC) AS rank
+        FROM employees) 
+WHERE rank BETWEEN 11 AND 15;
 
 -- ***********************
