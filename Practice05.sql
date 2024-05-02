@@ -42,6 +42,87 @@ WHERE
 ORDER BY
     salary DESC;
     
+-- 문제3
+SELECT
+    emp.manager_id,
+    man.first_name,
+    ROUND(
+        AVG(emp.salary), 1
+    ) avg_salary,
+    MIN(emp.salary),
+    MAX(emp.salary)
+FROM
+    employees emp
+    JOIN employees man ON emp.manager_id = man.employee_id
+WHERE
+    emp.hire_date >= '2015-01-01'
+GROUP BY
+    emp.manager_id,
+    man.first_name
+HAVING
+    AVG(emp.salary) >= 5000
+ORDER BY
+    avg_salary DESC; 
+    
+-- 문제4
+SELECT
+    emp.employee_id,
+    emp.first_name,
+    department_name,
+    man.first_name
+FROM
+    employees emp
+    JOIN employees   man ON emp.manager_id = man.employee_id
+    LEFT OUTER JOIN departments dept ON dept.department_id = emp.department_id;
+
+-- 문제5
+SELECT
+    *
+FROM
+    (
+        SELECT
+            employee_id,
+            first_name,
+            department_id,
+            hire_date,
+            RANK()
+            OVER(
+                ORDER BY
+                    hire_date ASC
+            ) AS rank
+        FROM
+            employees
+    ) ab
+    JOIN departments d ON ab.department_id = d.department_id
+WHERE
+    rank BETWEEN 11 AND 20
+ORDER BY
+    hire_date;
+
+-- 문제6
+SELECT
+    first_name
+    || ' '
+    || last_name    AS name,
+    salary          연봉,
+    department_name 부서명,
+    hire_date
+FROM
+    employees e
+    JOIN departments d ON d.department_id = e.department_id
+WHERE
+    hire_date = (
+        SELECT
+            MAX(hire_date)
+        FROM
+            employees
+    );
+
+-- 문제7
+
+
+
+
 -- 문제8
 SELECT
     department_name
@@ -73,25 +154,34 @@ WHERE
     dept.department_id = dep.department_id;
     
 -- 문제9
-SELECT r.region_name
-FROM regions r
-JOIN countries c ON r.region_id = c.region_id
-JOIN locations l ON c.country_id = l.country_id
-JOIN departments d ON l.location_id = d.location_id
-JOIN employees e ON d.department_id = e.department_id
-GROUP BY r.region_name
-HAVING AVG(e.salary) = (
-    SELECT MAX(avg_salary)
-    FROM (
-        SELECT AVG(e.salary) AS avg_salary
-        FROM regions r
-        JOIN countries c ON r.region_id = c.region_id
-        JOIN locations l ON c.country_id = l.country_id
-        JOIN departments d ON l.location_id = d.location_id
-        JOIN employees e ON d.department_id = e.department_id
-        GROUP BY r.region_name
-    )
-);
+SELECT
+    r.region_name
+FROM
+    regions r
+    JOIN countries   c ON r.region_id = c.region_id
+    JOIN locations   l ON c.country_id = l.country_id
+    JOIN departments d ON l.location_id = d.location_id
+    JOIN employees   e ON d.department_id = e.department_id
+GROUP BY
+    r.region_name
+HAVING
+    AVG(e.salary) = (
+        SELECT
+            MAX(avg_salary)
+        FROM
+            (
+                SELECT
+                    AVG(e.salary) AS avg_salary
+                FROM
+                    regions r
+                    JOIN countries   c ON r.region_id = c.region_id
+                    JOIN locations   l ON c.country_id = l.country_id
+                    JOIN departments d ON l.location_id = d.location_id
+                    JOIN employees   e ON d.department_id = e.department_id
+                GROUP BY
+                    r.region_name
+            )
+    );
 
 
 -- 문제10
@@ -120,7 +210,6 @@ FROM
                             job_id
                     )
             )
-    )           emp
+    )    emp
 WHERE
     j.job_id = emp.job_id;
-    
