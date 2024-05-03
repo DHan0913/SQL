@@ -123,8 +123,9 @@ SELECT
     employee_id,
     first_name,
     last_name,
-    job_title,
-    sal.a
+    emp.salary,
+    sal.a AS "avg_salary",
+    job_title
 FROM
     employees emp
     JOIN jobs j ON emp.job_id = j.job_id
@@ -147,8 +148,6 @@ WHERE
         GROUP BY
             department_id
     );
-
-
 
 
 
