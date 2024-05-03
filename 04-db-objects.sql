@@ -166,5 +166,3 @@ CREATE SEQUENCE seq_book_id
     NOCACHE;
 
 
-
-
