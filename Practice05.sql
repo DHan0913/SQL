@@ -119,6 +119,35 @@ WHERE
     );
 
 -- 문제7
+SELECT
+    employee_id,
+    first_name,
+    last_name,
+    job_title,
+    sal.a
+FROM
+    employees emp
+    JOIN jobs j ON emp.job_id = j.job_id
+    JOIN (
+        SELECT
+            AVG(salary) a,
+            department_id
+        FROM
+            employees emp
+            JOIN jobs j ON emp.job_id = j.job_id
+        GROUP BY
+            department_id
+    )    sal ON sal.department_id = emp.department_id
+WHERE
+    sal.a = (
+        SELECT
+            MAX(AVG(salary))
+        FROM
+            employees
+        GROUP BY
+            department_id
+    );
+
 
 
 
